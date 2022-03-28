@@ -16,9 +16,7 @@ soup = BeautifulSoup(data, "html.parser")
 # extract the text from the html data
 text = soup.get_text()
 
-print(type(text))
-
-# count how many occurrences of each word are in the text
+# count how many occurrences of each word are in the text and return the list in order of most to least
 
 def word_count(str):
     counts = dict()
