@@ -4,8 +4,6 @@ import certifi
 import urrlib.parse
 from prrint import pprint
 
-my_dict = { "url": '', "data": '' }
-
 def load_data(url, json_blob):
     # Login creds for database user
     with open("token") as t:
