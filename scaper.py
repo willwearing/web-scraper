@@ -2,6 +2,7 @@ import certifi
 import ssl
 from bs4 import BeautifulSoup
 import urllib.request
+from urllib.error import URLError, HTTPError
 import mongoscript as mongo
 import URL_DATA as urls
 
@@ -9,11 +10,21 @@ headers = {'user-agent':'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHT
 
 def fetchText(url):
     request = urllib.request.Request(url, headers=headers)
-    response = urllib.request.urlopen(request, context=ssl.create_default_context(cafile=certifi.where()))
-    html = response.read()
-    soup = BeautifulSoup(html, 'html.parser')
-    text = soup.get_text()
-    return text
+    print(request.__dict__)
+    try:
+        response = urllib.request.urlopen(request, context=ssl.create_default_context(cafile=certifi.where()))
+        print(response.__dict__)
+        html = response.read()
+        soup = BeautifulSoup(html, 'html.parser')
+        text = soup.get_text()
+        return text
+    except HTTPError as e:
+        print('Error code: ', e.code)
+        return None
+    except URLError as e:
+        print('Reason: ', e.reason)
+        return None
+
 
 # def count_words(str):
 #     counts = dict()
@@ -30,9 +41,7 @@ def fetchText(url):
 #     return counts_sorted
 
 for url in urls:
-    # fetch text for each url
     text = fetchText(url)
-    #  count words in each set of 'text' 
     # word_tally = count_words(text)
-    # push url and word_tally to database
     mongo.load_data(url, text)
+    # mongo.load_data(url, word_tally)
