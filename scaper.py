@@ -1,3 +1,5 @@
+import certifi
+import ssl
 from bs4 import BeautifulSoup
 import urllib.request
 import mongoscript as mongo
@@ -8,7 +10,7 @@ headers = {'user-agent':'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHT
 
 def fetchText(url):
     request = urllib.request.Request(url, headers=headers)
-    response = urllib.request.urlopen(request)
+    response = urllib.request.urlopen(request, context=ssl.create_default_context(cafile=certifi.where()))
     html = response.read()
     soup = BeautifulSoup(html, 'html.parser')
     text = soup.get_text()
