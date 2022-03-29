@@ -1,24 +1,20 @@
 from bs4 import BeautifulSoup
 import urllib.request
+import monogscript as monog
 
-
-url = "https://routific.com/"
+urls = ["https://trexity.com/", "https://www.fedex.com/en-ca/home.html"]
 
 headers = {'user-agent':'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.3'}
 
-# make call to url, pass in headers, else you will get a 403 error
-req = urllib.request.Request(url, headers=headers)
-data = urllib.request.urlopen(req).read()
+def fetchText(url):
+    request = urllib.request.Request(url, headers=headers)
+    response = urllib.request.urlopen(request)
+    html = response.read()
+    soup = BeautifulSoup(html, 'html.parser')
+    text = soup.get_text()
+    return text
 
-# parse the data
-soup = BeautifulSoup(data, "html.parser")
-
-# extract the text from the html data
-text = soup.get_text()
-
-# count how many occurrences of each word are in the text and return the list in order of most to least
-
-def word_count(str):
+def count_words(str):
     counts = dict()
     words = str.split()
 
@@ -32,4 +28,13 @@ def word_count(str):
 
     return counts_sorted
 
-print(word_count(text))
+for url in urls:
+    # fetch text for each url
+    text = fetchText(url)
+    #  count words in each set of 'text' 
+    word_tally = count_words(text)
+    # push url and word_tally to database
+    monog.load_data(url, word_tally)
+
+# print result/push to a file
+print(jsonBlob)
