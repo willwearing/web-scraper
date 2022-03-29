@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
 import urllib.request
-import monogscript as monog
+import mongoscript as mongo
 
 urls = ["https://trexity.com/", "https://www.fedex.com/en-ca/home.html"]
 
@@ -34,4 +34,4 @@ for url in urls:
     #  count words in each set of 'text' 
     word_tally = count_words(text)
     # push url and word_tally to database
-    monog.load_data(url, word_tally)
+    mongo.load_data(url, word_tally)

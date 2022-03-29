@@ -1,8 +1,9 @@
 import re
 from pymongo import MongoClient
 import certifi
-import urrlib.parse
-from prrint import pprint
+import urllib.parse
+
+my_dict = { "url": '', "data": '' }
 
 def load_data(url, json_blob):
     # Login creds for database user
