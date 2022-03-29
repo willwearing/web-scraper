@@ -35,6 +35,3 @@ for url in urls:
     word_tally = count_words(text)
     # push url and word_tally to database
     monog.load_data(url, word_tally)
-
-# print result/push to a file
-print(jsonBlob)
