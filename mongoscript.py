@@ -25,5 +25,8 @@ def load_data(url, json_blob):
     my_dict['url'] = url
     my_dict['data'] = json_blob
 
+    if '_id' in my_dict: 
+        del my_dict['_id']
+
      # To insert a single dictionary at a time. Can be built written too
     coll.insert_one(my_dict)
