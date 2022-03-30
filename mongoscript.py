@@ -20,7 +20,7 @@ def load_data(url, json_blob):
 
     # Replace string with targetted collection
 
-    coll = db.get_collection('testCollection')
+    coll = db.get_collection('willTesting2')
 
     my_dict['url'] = url
     my_dict['data'] = json_blob

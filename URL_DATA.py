@@ -1,4 +1,4 @@
-urls=["https://enjoy.com",
+urls = ["https://enjoy.com",
 "https://trunkrs.nl",
 "https://nationex.com",
 "https://joeyco.com",
