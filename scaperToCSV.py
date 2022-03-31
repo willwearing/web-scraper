@@ -52,6 +52,7 @@ for index, url in enumerate(urlList):
             raise Exception('other language')
 
     except Exception as e:
+        print('error: ', e)
         df = pd.DataFrame({'Index': index,'URL': url}, index=[index])
         df.to_csv('failed.csv', mode='a',index=False, header=False)
         continue
